@@ -1,0 +1,11 @@
+<resources>
+
+    <string name="app_name">AppLinkingHowTo</string>
+    <string name="app_id">187260344741997</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_detail">Details</string>
+    <string name="title_button_publish">Share</string>
+    <string name="description_post_image">Post Image</string>
+
+</resources>

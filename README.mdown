@@ -1,0 +1,74 @@
+# Facebook SDK 3.0.b for Android - Sample How Tos
+
+Sample apps to support How To documentation found in the Android Dev Center.
+
+Authors: Bear Douglas (beardouglas), Christine Abernathy (caabernathy), Ravi Grover (fbgrover)
+
+## Installing
+
+Installing the samples requires you to add the Facebook SDK library to the project. To run the samples and use Facebook Login via Facebook for Android app, you also need to create your own Facebook App, set up your Android Key Hash in the Facebook App's Android settings and also use that App's ID instead of the one shipped in the samples.
+
+1. Set up a Facebook app using the App Dashboard:
+   1. Create a new [Facebook app](https://developers.facebook.com/apps)
+   1. Configure the Native Android App settings.
+        1. Enable the _Facebook Login_ setting.
+        1. Enter you app's signature in the _Key Hash_ field. For more information see the [Getting Started with the Facebook Android SDK](https://developers.facebook.com/docs/getting-started/facebook-sdk-for-android/3.0/).
+
+1. Download the Facebook Android SDK 3.0.b for Android: https://developers.facebook.com/android-beta/
+
+1. Install the Facebook Android SDK 3.0.b for Android: See the [Getting Started with the Facebook Android SDK](https://developers.facebook.com/docs/getting-started/facebook-sdk-for-android/3.0/) for more instructions.
+
+1. Install the Facebook app if testing on an emulator. See the [Getting Started with the Facebook Android SDK](https://developers.facebook.com/docs/getting-started/facebook-sdk-for-android/3.0/) for more instructions.
+
+1. Launch Eclipse
+
+1. Import a sample app:
+   1. From the Eclipse menu, navigate to File > Import
+   1. Select General > Existing Projects into Workspace
+   1. The sample package should include a folder for the sample you're interested in, ex: LoginHowTo
+   1. Browse to the sample folder and select it
+   1. Click Finish
+
+1. Include the Facebook SDK for Android:
+   1. From the Eclipse Package Explorer, select the sample project
+   1. Right-click and select the Properties menu
+   1. In the Library section, click Add
+   1. Select FacebookSDK
+   1. Click OK
+   1. Click OK to exit the Properties dialog
+
+1. Set up your Facebook App ID:
+   1. From the Eclipse Package Explorer, select the sample project
+   1. Open up the Android string resources file (res/values/strings.xml)
+   1. Change the existing app_id string, ex:
+
+             <string name="app_id">230430833746494</string>
+
+     to:
+
+             <string name="app_id">YOUR_APP_ID</string>
+
+
+1. Run the application as an Android Application.
+
+## Documentation
+
+The How Tos are listed in the technical guide setion in https://developers.facebook.com/android-beta/
+
+## Additional Resources
+
+Facebook SDK for Android documentation can be found at https://developers.facebook.com/android-beta/
+
+## Contributing
+
+All contributors must agree to and sign the [Facebook CLA](https://developers.facebook.com/opensource/cla) prior to submitting Pull Requests. We cannot accept Pull Requests until this document is signed and submitted.
+
+## License
+
+Copyright 2012-present Facebook, Inc.
+
+You are hereby granted a non-exclusive, worldwide, royalty-free license to use, copy, modify, and distribute this software in source code or binary form for use in connection with the web services and APIs provided by Facebook.
+
+As with any software that integrates with the Facebook platform, your use of this software is subject to the Facebook Developer Principles and Policies [http://developers.facebook.com/policy/]. This copyright notice shall be included in all copies or substantial portions of the software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

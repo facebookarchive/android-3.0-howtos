@@ -1,0 +1,9 @@
+<resources>
+
+    <string name="app_name">BatchRequestsHowTo</string>
+    <string name="app_id">216458921816803</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="batchRequest">Batch Request</string>
+    
+</resources>
