@@ -1,0 +1,10 @@
+<resources>
+
+    <string name="app_name">FQLHowTo</string>
+    <string name="app_id">215332518592319</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="query">Query</string>
+    <string name="multiQuery">Multi-query</string>
+    
+</resources>
