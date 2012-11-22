@@ -17,9 +17,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.android.DialogError;
-import com.facebook.android.Facebook.DialogListener;
-import com.facebook.android.FacebookError;
+import com.facebook.FacebookException;
+import com.facebook.Session;
+import com.facebook.widget.WebDialog;
+import com.facebook.widget.WebDialog.OnCompleteListener;
 
 public class DetailFragment extends Fragment {
 
@@ -95,35 +96,30 @@ public class DetailFragment extends Fragment {
     	params.putString("description", recipe.getDescription());
     	params.putString("link", recipe.getLink());
     	params.putString("picture", recipe.getImageLink());
-
+    	
     	// Invoke the dialog
-    	((AppLinkingHowToApplication)getActivity()
-    			.getApplication())
-    			.facebook.dialog(getActivity(), 
-    			"feed", params, new DialogListener() {
+    	WebDialog feedDialog = (
+    			new WebDialog.FeedDialogBuilder(getActivity(),
+    					Session.getActiveSession(),
+    					params))
+    					.setOnCompleteListener(new OnCompleteListener() {
 
-			@Override
-			public void onComplete(Bundle values) {
-				// When the story is posted, echo the success
-				// and the post Id.
-				final String postId = values.getString("post_id");
-				if (postId != null) {
-					Toast.makeText(getActivity(),
-							"Story published: "+postId,
-							Toast.LENGTH_SHORT).show();
-				}
-				
-			}
-
-			@Override
-			public void onFacebookError(FacebookError e) {}
-
-			@Override
-			public void onError(DialogError e) {}
-
-			@Override
-			public void onCancel() {}
-    		
-    	});
+    						@Override
+    						public void onComplete(Bundle values,
+    								FacebookException error) {
+    							// When the story is posted, echo the success
+    							// and the post Id.
+    							final String postId = values.getString("post_id");
+    							if (postId != null) {
+    								Toast.makeText(getActivity(),
+    										"Story published: "+postId,
+    										Toast.LENGTH_SHORT).show();
+    							}
+    						}
+    						
+    						})
+    					.build();
+    	feedDialog.show();
+    	
     }
 }

@@ -8,12 +8,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.facebook.GraphObject;
 import com.facebook.Request;
 import com.facebook.RequestBatch;
 import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.SessionState;
+import com.facebook.model.GraphObject;
 
 public class MainFragment extends Fragment {
 	

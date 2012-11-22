@@ -52,13 +52,9 @@ public class MainFragment extends Fragment {
     	if (state.isOpened()) {
     		// Make the recipe list visible
     		recipeListView.setVisibility(View.VISIBLE);    		
-    		// Save the Facebook instance session information
-    		((AppLinkingHowToApplication)getActivity().getApplication()).saveSession();
         } else if (state.isClosed()) {
         	// Make the recipe list hidden
-        	recipeListView.setVisibility(View.INVISIBLE);      	
-    		// Clear the Facebook instance session information
-    		((AppLinkingHowToApplication)getActivity().getApplication()).clearSession();
+        	recipeListView.setVisibility(View.INVISIBLE);
         }
     }
 }

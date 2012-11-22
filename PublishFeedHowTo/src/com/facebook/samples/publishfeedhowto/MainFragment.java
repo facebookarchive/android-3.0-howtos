@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.facebook.FacebookException;
+import com.facebook.FacebookRequestError;
 import com.facebook.HttpMethod;
 import com.facebook.Request;
 import com.facebook.RequestAsyncTask;
@@ -111,11 +111,11 @@ public class MainFragment extends Fragment {
 		                Log.i(TAG,
 		                    "JSON error "+ e.getMessage());
 		            }
-		            FacebookException error = response.getError();
+		            FacebookRequestError error = response.getError();
 		            if (error != null) {
 		                Toast.makeText(getActivity()
 		                     .getApplicationContext(),
-		                     error.getMessage(),
+		                     error.getErrorMessage(),
 		                     Toast.LENGTH_SHORT).show();
 		                } else {
 		                    Toast.makeText(getActivity()

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import android.app.Application;
 
-import com.facebook.Session;
 import com.facebook.android.Facebook;
 
 public class AppLinkingHowToApplication extends Application {
@@ -15,10 +14,6 @@ public class AppLinkingHowToApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		
-		// Initialize the Facebook instance that is only
-        // used for legacy API, ex: feed, requests
-        facebook = new Facebook(getResources().getString(R.string.app_id));
         
         // Initialize the data, the menu items that
         // will be listed to the user and that will
@@ -54,22 +49,5 @@ public class AppLinkingHowToApplication extends Application {
     	}
     	return recipeIndex;
 	}
-	
-	/**
-	 * Method to save the Facebook instance session info
-	 */
-	public void saveSession() {
-		facebook.setAccessToken(Session.getActiveSession()
-				.getAccessToken());
-		facebook.setAccessExpires(Session.getActiveSession()
-				.getExpirationDate().getTime());
-	}
-	
-	/**
-	 * Method to clear the Facebook instance session info
-	 */
-	public void clearSession() {
-		facebook.setAccessToken(null);
-		facebook.setAccessExpires(-1);
-	}
+
 }

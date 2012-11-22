@@ -11,13 +11,13 @@ import android.view.Menu;
 import android.widget.Toast;
 
 import com.facebook.FacebookActivity;
-import com.facebook.FacebookException;
-import com.facebook.GraphObject;
+import com.facebook.FacebookRequestError;
 import com.facebook.HttpMethod;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.SessionState;
+import com.facebook.model.GraphObject;
 
 public class MainActivity extends FacebookActivity {
 
@@ -112,7 +112,7 @@ public class MainActivity extends FacebookActivity {
 					public void onCompleted(Response response) {
 						// Process the returned response
 						GraphObject graphObject = response.getGraphObject();
-	                    FacebookException error = response.getError();
+						FacebookRequestError error = response.getError();
 	                    boolean processError = false;
 	                    // Default message
 	                    String message = "Incoming request";
