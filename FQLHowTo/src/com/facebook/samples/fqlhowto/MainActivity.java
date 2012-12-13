@@ -1,20 +1,17 @@
 package com.facebook.samples.fqlhowto;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 
-import com.facebook.FacebookActivity;
-import com.facebook.Session;
-import com.facebook.SessionState;
-
-public class MainActivity extends FacebookActivity {
+public class MainActivity extends FragmentActivity {
 	
 	private MainFragment mainFragment;
-	private boolean isResumed = false;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
         
         if (savedInstanceState == null) {
         	// Add the fragment on initial activity setup
@@ -29,44 +26,10 @@ public class MainActivity extends FacebookActivity {
         	.findFragmentById(android.R.id.content);
         }
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        isResumed = true;
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        isResumed = false;
-    }
-
-	@Override
-    protected void onResumeFragments() {
-        super.onResumeFragments();
-        
-        // For scenarios where the main activity is launched and user
-		// session is not null, the session state change notification
-		// may not be triggered. Trigger it if it's open/closed.
-		Session session = Session.getActiveSession();
-		if (session != null &&
-				(session.isOpened() || session.isClosed()) ) {
-			onSessionStateChange(session.getState(), null);
-		}
-	}
-	
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
-    }
-    
-    @Override
-    protected void onSessionStateChange(SessionState state, Exception exception) {
-    	super.onSessionStateChange(state, exception);
-    	if (isResumed) {
-    	    mainFragment.onSessionStateChange(state, exception);
-    	}
     }
 }

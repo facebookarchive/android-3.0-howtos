@@ -24,14 +24,24 @@ import com.facebook.RequestAsyncTask;
 import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.SessionState;
+import com.facebook.UiLifecycleHelper;
+import com.facebook.widget.LoginButton;
 
 public class MainFragment extends Fragment {
 	
 	private static final String TAG = "MainFragment";
+	
+	private UiLifecycleHelper uiHelper;
+    private Session.StatusCallback callback = new Session.StatusCallback() {
+        @Override
+        public void call(final Session session, final SessionState state, final Exception exception) {
+            onSessionStateChange(session, state, exception);
+        }
+    };
+    
 	private Button shareButton;
 	
 	private static final List<String> PERMISSIONS = Arrays.asList("publish_actions");
-	private static final int REAUTH_ACTIVITY_CODE = 100;
 	
 	private static final String PENDING_PUBLISH_KEY = "pendingPublishReauthorization";
 	
@@ -43,6 +53,9 @@ public class MainFragment extends Fragment {
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.main, container, false);
         
+		LoginButton authButton = (LoginButton) view.findViewById(R.id.authButton);
+		authButton.setFragment(this);
+		
 		shareButton = (Button) view.findViewById(R.id.shareButton);
 		shareButton.setOnClickListener(new View.OnClickListener() {
 		    @Override
@@ -59,12 +72,54 @@ public class MainFragment extends Fragment {
 	}
     
 	@Override
-	public void onSaveInstanceState(Bundle bundle) {
-        super.onSaveInstanceState(bundle);
-        bundle.putBoolean(PENDING_PUBLISH_KEY, pendingPublishReauthorization);
-	}
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        uiHelper = new UiLifecycleHelper(getActivity(), callback);
+        uiHelper.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        
+        // For scenarios where the main activity is launched and user
+		// session is not null, the session state change notification
+		// may not be triggered. Trigger it if it's open/closed.
+		Session session = Session.getActiveSession();
+		if (session != null &&
+				(session.isOpened() || session.isClosed()) ) {
+			onSessionStateChange(session, session.getState(), null);
+		}
+		
+        uiHelper.onResume();
+    }
+    
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        uiHelper.onActivityResult(requestCode, resultCode, data);
+    }
+    
+    @Override
+    public void onPause() {
+        super.onPause();
+        uiHelper.onPause();
+    }
+    
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        uiHelper.onDestroy();
+    }
+    
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(PENDING_PUBLISH_KEY, pendingPublishReauthorization);
+        uiHelper.onSaveInstanceState(outState);
+    }
 	
-	public void onSessionStateChange(SessionState state, Exception exception) {
+	private void onSessionStateChange(Session session, SessionState state, Exception exception) {
         if (state.isOpened()) {
             shareButton.setVisibility(View.VISIBLE);
             if (pendingPublishReauthorization && 
@@ -85,10 +140,9 @@ public class MainFragment extends Fragment {
 		    List<String> permissions = session.getPermissions();
 		        if (!isSubsetOf(PERMISSIONS, permissions)) {
 		        	pendingPublishReauthorization = true;
-		            Session.ReauthorizeRequest reauthRequest = new Session
-		                    .ReauthorizeRequest(this, PERMISSIONS)
-		                    .setRequestCode(REAUTH_ACTIVITY_CODE);
-		            session.reauthorizeForPublish(reauthRequest);
+		            Session.NewPermissionsRequest newPermissionsRequest = new Session
+		                    .NewPermissionsRequest(this, PERMISSIONS);
+		            session.requestNewPublishPermissions(newPermissionsRequest);
 		            return;
 		       }
 
@@ -142,12 +196,5 @@ public class MainFragment extends Fragment {
 	    }
 	    return true;
 	}
-	
-	@Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REAUTH_ACTIVITY_CODE) {
-            Session.getActiveSession().onActivityResult(getActivity(), requestCode, resultCode, data);
-        }
-	}
+
 }
