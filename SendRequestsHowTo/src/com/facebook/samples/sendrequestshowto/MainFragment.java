@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.facebook.FacebookException;
+import com.facebook.FacebookOperationCanceledException;
 import com.facebook.FacebookRequestError;
 import com.facebook.HttpMethod;
 import com.facebook.Request;
@@ -153,16 +154,28 @@ public class MainFragment extends Fragment {
     						@Override
     						public void onComplete(Bundle values,
     								FacebookException error) {
-    							final String requestId = values.getString("request");
-    				            if (requestId != null) {
-    				                Toast.makeText(getActivity().getApplicationContext(), 
-    				                    "Request sent",  
-    				                    Toast.LENGTH_SHORT).show();
-    				            } else {
-    				            	Toast.makeText(getActivity().getApplicationContext(), 
-    				    	                "Request cancelled", 
-    				    	                Toast.LENGTH_SHORT).show();
-    				            }
+    							if (error != null) {
+    								if (error instanceof FacebookOperationCanceledException) {
+    									Toast.makeText(getActivity().getApplicationContext(), 
+        				    	                "Request cancelled", 
+        				    	                Toast.LENGTH_SHORT).show();
+    								} else {
+    									Toast.makeText(getActivity().getApplicationContext(), 
+        				    	                "Network Error", 
+        				    	                Toast.LENGTH_SHORT).show();
+    								}
+    							} else {
+    								final String requestId = values.getString("request");
+        				            if (requestId != null) {
+        				                Toast.makeText(getActivity().getApplicationContext(), 
+        				                    "Request sent",  
+        				                    Toast.LENGTH_SHORT).show();
+        				            } else {
+        				            	Toast.makeText(getActivity().getApplicationContext(), 
+        				    	                "Request cancelled", 
+        				    	                Toast.LENGTH_SHORT).show();
+        				            }
+    							}	
     						}
     						
     						})
