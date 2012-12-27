@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.facebook.FacebookException;
+import com.facebook.FacebookOperationCanceledException;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
@@ -117,11 +118,30 @@ public class MainFragment extends Fragment {
     						@Override
     						public void onComplete(Bundle values,
     								FacebookException error) {
-    							final String postId = values.getString("post_id");
-    							if (postId != null) {
-    								Toast.makeText(getActivity(),
-    										"Posted story, id: "+postId,
-    										Toast.LENGTH_SHORT).show();
+    							if (error == null) {
+    								// When the story is posted, echo the success
+    				                // and the post Id.
+    								final String postId = values.getString("post_id");
+        							if (postId != null) {
+        								Toast.makeText(getActivity(),
+        										"Posted story, id: "+postId,
+        										Toast.LENGTH_SHORT).show();
+        							} else {
+        								// User clicked the Cancel button
+        								Toast.makeText(getActivity().getApplicationContext(), 
+        		                                "Publish cancelled", 
+        		                                Toast.LENGTH_SHORT).show();
+        							}
+    							} else if (error instanceof FacebookOperationCanceledException) {
+    								// User clicked the "x" button
+    								Toast.makeText(getActivity().getApplicationContext(), 
+    		                                "Publish cancelled", 
+    		                                Toast.LENGTH_SHORT).show();
+    							} else {
+    								// Generic, ex: network error
+    								Toast.makeText(getActivity().getApplicationContext(), 
+    		                                "Error posting story", 
+    		                                Toast.LENGTH_SHORT).show();
     							}
     						}
     						

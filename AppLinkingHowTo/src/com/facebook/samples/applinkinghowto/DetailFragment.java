@@ -107,13 +107,15 @@ public class DetailFragment extends Fragment {
     						@Override
     						public void onComplete(Bundle values,
     								FacebookException error) {
-    							// When the story is posted, echo the success
-    							// and the post Id.
-    							final String postId = values.getString("post_id");
-    							if (postId != null) {
-    								Toast.makeText(getActivity(),
-    										"Story published: "+postId,
-    										Toast.LENGTH_SHORT).show();
+    							if (error == null) {
+    								// When the story is posted, echo the success
+        							// and the post Id.
+    								final String postId = values.getString("post_id");
+        							if (postId != null) {
+        								Toast.makeText(getActivity(),
+        										"Story published: "+postId,
+        										Toast.LENGTH_SHORT).show();
+        							}
     							}
     						}
     						
