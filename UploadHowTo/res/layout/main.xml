@@ -1,0 +1,37 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.facebook.widget.LoginButton
+        android:id="@+id/authButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        />
+    
+    <Button
+    	    android:id="@+id/photoButton"
+    	    android:layout_width="match_parent"
+    	    android:layout_height="wrap_content"
+    	    android:textStyle="bold"
+    	    android:gravity="center"
+    	    android:layout_marginTop="30dp"
+    	    android:visibility="invisible"
+    	    android:text="@string/photo"
+    />
+
+    <Button
+    	    android:id="@+id/videoButton"
+    	    android:layout_width="match_parent"
+    	    android:layout_height="wrap_content"
+    	    android:textStyle="bold"
+    	    android:gravity="center"
+    	    android:layout_marginTop="30dp"
+    	    android:visibility="invisible"
+    	    android:text="@string/video"
+    />
+
+</LinearLayout>
