@@ -4,6 +4,11 @@
 */.settings
 .DS_Store
 */.DS_Store
+*/*/bin/
+*/*/gen/
+*/*/assets/
+*/*/.settings
+*/*/.DS_Store
 *~
 *#
 .arcconfig
