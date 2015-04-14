@@ -1,3 +1,9 @@
+- - -
+
+**_This project is not actively maintained. Proceed at your own risk!_**
+
+- - -
+
 # Facebook SDK 3.0.b for Android - Sample How Tos
 
 Sample apps to support How To documentation found in the Android Dev Center.
