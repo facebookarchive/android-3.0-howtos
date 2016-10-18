@@ -1,0 +1,11 @@
+<resources>
+
+    <string name="app_name">UploadHowTo</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="menu_settings">Menu</string>
+    <string name="app_id">571956349496095</string>
+    
+    <string name="photo">Post a Photo</string>
+    <string name="video">Post a Video</string>
+
+</resources>
